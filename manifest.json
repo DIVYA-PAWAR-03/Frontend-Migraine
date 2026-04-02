@@ -1,0 +1,46 @@
+{
+    "name": "MigraineCare AI",
+    "short_name": "MigraineCare",
+    "description": "Advanced AI-powered migraine risk assessment and prevention platform",
+    "start_url": "/professional_index.html",
+    "display": "standalone",
+    "background_color": "#f8fafc",
+    "theme_color": "#0077B6",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "icons/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "maskable any"
+        }
+    ],
+    "categories": ["health", "medical", "lifestyle"],
+    "screenshots": [
+        {
+            "src": "icons/screenshot1.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Risk Assessment",
+            "short_name": "Assessment",
+            "description": "Check your migraine risk",
+            "url": "/professional_index.html#lifestyle-assessment",
+            "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+        },
+        {
+            "name": "AI Chat",
+            "short_name": "Chat",
+            "description": "Talk to AI assistant",
+            "url": "/professional_index.html#ai-assistant",
+            "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}

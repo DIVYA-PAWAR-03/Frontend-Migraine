@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migraine Trigger Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Results Section */
+        .results-section {
+            grid-column: 1 / -1;
+        }
+
+        .risk-display {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .risk-level {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .risk-level.low {
+            color: #10b981;
+        }
+
+        .risk-level.medium {
+            color: #f59e0b;
+        }
+
+        .risk-level.high {
+            color: #ef4444;
+        }
+
+        .risk-probability {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .triggers-section,
+        .suggestions-section {
+            margin-top: 20px;
+        }
+
+        .triggers-section h3,
+        .suggestions-section h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #ccc;
+        }
+
+        .trigger-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid #f59e0b;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .suggestion-item {
+            padding: 14px 16px;
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 3px solid #667eea;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 40px;
+            color: #888;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error-msg {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Migraine Trigger Tracker</h1>
+            <p>Enter your health data to predict migraine risk</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Input Form -->
+            <div class="card">
+                <h2>📝 Enter Your Data</h2>
+
+                <div id="error-box" class="error-msg hidden"></div>
+
+                <form id="health-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>😰 Stress Level (1-10)</label>
+                            <input type="number" id="stress" min="1" max="10" value="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label>😴 Sleep Hours</label>
+                            <input type="number" id="sleep" min="0" max="24" step="0.5" value="7" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>❤️ Heart Rate (BPM)</label>
+                            <input type="number" id="heart-rate" min="40" max="200" value="72" required>
+                        </div>
+                        <div class="form-group">
+                            <label>🏃 Activity Level (1-10)</label>
+                            <input type="number" id="activity" min="1" max="10" value="5" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>🌤️ Weather Pressure (hPa)</label>
+                            <input type="number" id="pressure" min="900" max="1100" step="0.1" value="1013" required>
+                        </div>
+                        <div class="form-group">
+                            <label>💨 Air Quality Index</label>
+                            <input type="number" id="aqi" min="0" max="500" value="50" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" id="predict-btn">
+                        🔮 Get Prediction
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results -->
+            <div class="card">
+                <h2>📊 Prediction Results</h2>
+
+                <div id="results-placeholder" class="no-data">
+                    <p>Enter your data and click "Get Prediction"</p>
+                </div>
+
+                <div id="results-loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <span>Analyzing...</span>
+                </div>
+
+                <div id="results-content" class="hidden">
+                    <div class="risk-display">
+                        <div class="risk-level" id="risk-level">--</div>
+                        <div class="risk-probability" id="risk-prob">-- probability</div>
+                    </div>
+
+                    <div class="triggers-section">
+                        <h3>⚠️ Detected Triggers</h3>
+                        <div id="triggers-list">
+                            <p class="no-data">No triggers detected</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Suggestions - Full Width -->
+            <div class="card results-section hidden" id="suggestions-card">
+                <h2>✨ AI Prevention Tips</h2>
+
+                <div id="suggestions-loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <span>Generating personalized advice...</span>
+                </div>
+
+                <div id="suggestions-content">
+                    <div id="suggestions-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>⚕️ This is for informational purposes only. Always consult a healthcare professional.</p>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000/api/v1';
+
+        // Get form data
+        function getFormData() {
+            return {
+                stress_level: parseInt(document.getElementById('stress').value),
+                sleep_hours: parseFloat(document.getElementById('sleep').value),
+                heart_rate: parseInt(document.getElementById('heart-rate').value),
+                activity_level: parseInt(document.getElementById('activity').value),
+                weather_pressure: parseFloat(document.getElementById('pressure').value),
+                aqi: parseInt(document.getElementById('aqi').value),
+                user_id: 'default_user'
+            };
+        }
+
+        // Show error
+        function showError(message) {
+            const errorBox = document.getElementById('error-box');
+            errorBox.textContent = message;
+            errorBox.classList.remove('hidden');
+            setTimeout(() => errorBox.classList.add('hidden'), 5000);
+        }
+
+        // Get trigger icon
+        function getTriggerIcon(trigger) {
+            const text = trigger.toLowerCase();
+            if (text.includes('stress')) return '😰';
+            if (text.includes('sleep')) return '😴';
+            if (text.includes('heart')) return '❤️';
+            if (text.includes('activity')) return '🏃';
+            if (text.includes('pressure')) return '🌤️';
+            if (text.includes('aqi') || text.includes('air')) return '💨';
+            return '⚡';
+        }
+
+        // Display prediction results
+        function displayPrediction(data) {
+            document.getElementById('results-placeholder').classList.add('hidden');
+            document.getElementById('results-loading').classList.add('hidden');
+            document.getElementById('results-content').classList.remove('hidden');
+
+            const riskLevel = document.getElementById('risk-level');
+            riskLevel.textContent = data.risk_level;
+            riskLevel.className = 'risk-level ' + data.risk_level.toLowerCase();
+
+            document.getElementById('risk-prob').textContent =
+                Math.round(data.probability * 100) + '% probability';
+
+            // Display triggers
+            const triggersList = document.getElementById('triggers-list');
+            if (data.triggers && data.triggers.length > 0) {
+                triggersList.innerHTML = data.triggers.map(t =>
+                    `<div class="trigger-item">${getTriggerIcon(t)} ${t}</div>`
+                ).join('');
+            } else {
+                triggersList.innerHTML = '<p style="color: #10b981;">✅ No significant triggers detected!</p>';
+            }
+        }
+
+        // Display AI suggestions
+        function displaySuggestions(data) {
+            document.getElementById('suggestions-loading').classList.add('hidden');
+
+            const list = document.getElementById('suggestions-list');
+            if (data.suggestions && data.suggestions.length > 0) {
+                list.innerHTML = data.suggestions.map(s =>
+                    `<div class="suggestion-item">💡 ${s}</div>`
+                ).join('');
+            } else {
+                list.innerHTML = '<p>No suggestions available</p>';
+            }
+        }
+
+        // Main predict function
+        async function predict(formData) {
+            try {
+                // Show loading
+                document.getElementById('results-placeholder').classList.add('hidden');
+                document.getElementById('results-loading').classList.remove('hidden');
+                document.getElementById('results-content').classList.add('hidden');
+
+                // Get prediction
+                const response = await fetch(`${API_URL}/predict`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) throw new Error('Prediction failed');
+
+                const prediction = await response.json();
+                displayPrediction(prediction);
+
+                // Show suggestions card and loading
+                const suggestionsCard = document.getElementById('suggestions-card');
+                suggestionsCard.classList.remove('hidden');
+                document.getElementById('suggestions-loading').classList.remove('hidden');
+                document.getElementById('suggestions-list').innerHTML = '';
+
+                // Get AI suggestions
+                const suggestionsResponse = await fetch(`${API_URL}/ai-suggestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...formData,
+                        triggers: prediction.triggers,
+                        risk_level: prediction.risk_level
+                    })
+                });
+
+                if (suggestionsResponse.ok) {
+                    const suggestions = await suggestionsResponse.json();
+                    displaySuggestions(suggestions);
+                } else {
+                    displaySuggestions({ suggestions: ['Unable to generate suggestions. Please try again.'] });
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Failed to get prediction. Make sure the server is running on port 8000.');
+                document.getElementById('results-loading').classList.add('hidden');
+                document.getElementById('results-placeholder').classList.remove('hidden');
+            }
+        }
+
+        // Form submit handler
+        document.getElementById('health-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = getFormData();
+            await predict(formData);
+        });
+    </script>
+</body>
+
+</html>

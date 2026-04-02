@@ -1,0 +1,2619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MigraineCare AI | Advanced Migraine Risk Assessment</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0077B6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MigraineCare">
+    <meta name="description" content="Advanced AI-powered migraine risk assessment and prevention platform">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            /* Healthcare Professional Color Palette */
+            --primary: #0077B6;
+            --primary-dark: #005f92;
+            --primary-light: #00B4D8;
+            --secondary: #48CAE4;
+            --accent: #90E0EF;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --warning: #D97706;
+            --warning-light: #fef3c7;
+            --danger: #DC2626;
+            --danger-light: #fee2e2;
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 8px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .top-banner i {
+            margin-right: 8px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-badges {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+        }
+
+        .trust-badge i {
+            color: var(--success);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            margin-bottom: 32px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(15deg);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .hero h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .hero-feature i {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 8px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 180px;
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-tab:hover {
+            background: var(--bg-tertiary);
+            color: var(--primary);
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-tab i {
+            font-size: 1.1rem;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+        }
+
+        .card-icon.success {
+            background: linear-gradient(135deg, var(--success) 0%, #10b981 100%);
+        }
+
+        .card-icon.warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #f59e0b 100%);
+        }
+
+        .card-title {
+            flex: 1;
+        }
+
+        .card-title h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .card-title p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+            width: 18px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            background: var(--bg-secondary);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 119, 182, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-row.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 600px) {
+            .form-row,
+            .form-row.three-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border);
+        }
+
+        .checkbox-item.checked {
+            background: rgba(0, 119, 182, 0.08);
+            border-color: var(--primary);
+        }
+
+        .checkbox-item input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-item span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            border-radius: var(--radius);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 14px rgba(0, 119, 182, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 119, 182, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            box-shadow: none;
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #10b981 100%);
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+        }
+
+        /* Risk Display */
+        .risk-display {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            margin-bottom: 28px;
+            border: 2px solid var(--border);
+        }
+
+        .risk-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .risk-indicator::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid currentColor;
+            opacity: 0.2;
+        }
+
+        .risk-indicator.low {
+            color: var(--success);
+            background: var(--success-light);
+        }
+
+        .risk-indicator.medium {
+            color: var(--warning);
+            background: var(--warning-light);
+        }
+
+        .risk-indicator.high {
+            color: var(--danger);
+            background: var(--danger-light);
+        }
+
+        .risk-level {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .risk-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .risk-probability {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .risk-subtext {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .confidence-bar {
+            margin-top: 24px;
+            background: var(--border);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+            transition: width 0.6s ease;
+        }
+
+        .confidence-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Triggers & Suggestions */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section-header i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .section-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trigger-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px 20px;
+            background: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .trigger-item i {
+            color: var(--warning);
+            margin-top: 2px;
+        }
+
+        .trigger-item.high {
+            background: var(--danger-light);
+            border-left-color: var(--danger);
+        }
+
+        .trigger-item.high i {
+            color: var(--danger);
+        }
+
+        .trigger-item.low {
+            background: var(--success-light);
+            border-left-color: var(--success);
+        }
+
+        .trigger-item.low i {
+            color: var(--success);
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px;
+            background: rgba(0, 119, 182, 0.05);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        .suggestion-item i {
+            color: var(--primary);
+            margin-top: 3px;
+        }
+
+        /* Classification Result */
+        .classification-result {
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(0, 119, 182, 0.08) 0%, rgba(72, 202, 228, 0.08) 100%);
+            border: 2px solid rgba(0, 119, 182, 0.2);
+            border-radius: var(--radius-lg);
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        .classification-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .classification-type {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .classification-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .classification-confidence {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .classification-confidence i {
+            color: var(--success);
+        }
+
+        .key-symptom {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: rgba(0, 119, 182, 0.1);
+            border: 1px solid rgba(0, 119, 182, 0.2);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin: 4px;
+            font-weight: 500;
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 550px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 14px;
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .chat-message.user .message-avatar {
+            background: var(--text-secondary);
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            line-height: 1.6;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .chat-message.user .message-content {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 14px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 18px 24px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .chat-input button {
+            padding: 18px 28px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.05);
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quick-question {
+            padding: 10px 18px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .quick-question:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 119, 182, 0.05);
+        }
+
+        /* Report Buttons */
+        .report-buttons {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 500px) {
+            .report-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 60px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .hidden { display: none !important; }
+
+        /* Alerts */
+        .alert {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        .alert-error {
+            background: var(--danger-light);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            color: var(--danger);
+        }
+
+        .alert-success {
+            background: var(--success-light);
+            border: 1px solid rgba(5, 150, 105, 0.2);
+            color: var(--success);
+        }
+
+        /* Placeholder */
+        .placeholder {
+            text-align: center;
+            padding: 60px 40px;
+            color: var(--text-muted);
+        }
+
+        .placeholder i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .placeholder p {
+            font-size: 1rem;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            padding: 28px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+
+        .info-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card ul li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .info-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card ul li i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: var(--text-muted);
+            padding: 48px 24px 24px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-brand h3 {
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+        }
+
+        .footer-disclaimer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+        }
+
+        .footer-disclaimer i {
+            color: var(--warning);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-badges {
+                display: none;
+            }
+
+            .hero {
+                padding: 32px 24px;
+            }
+
+            .hero h2 {
+                font-size: 1.75rem;
+            }
+
+            .nav-tab {
+                min-width: 140px;
+                padding: 14px 16px;
+                font-size: 0.85rem;
+            }
+
+            .card {
+                padding: 24px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* PWA Install Banner */
+        .pwa-install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pwa-install-banner.show {
+            transform: translateY(0);
+        }
+
+        .pwa-install-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .pwa-install-banner-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .pwa-install-banner-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .pwa-install-banner-text p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .pwa-install-banner-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .pwa-install-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .pwa-install-btn:hover {
+            background: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .pwa-dismiss-btn {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .pwa-dismiss-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Install App Section */
+        .install-app-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 60px 24px;
+            text-align: center;
+            color: white;
+        }
+
+        .install-app-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .install-app-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .install-app-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .install-features {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .install-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .install-feature i {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .install-app-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .install-app-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .install-app-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .install-app-btn.installed {
+            background: var(--success);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .pwa-install-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .pwa-install-banner-content {
+                flex-direction: column;
+            }
+
+            .pwa-install-banner-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .pwa-install-btn, .pwa-dismiss-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .install-features {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <i class="fas fa-shield-alt"></i>
+        Your health data is encrypted and secure. We follow HIPAA-compliant practices.
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>MigraineCare AI</h1>
+                    <span>Clinical Decision Support</span>
+                </div>
+            </div>
+            <div class="header-badges">
+                <div class="trust-badge">
+                    <i class="fas fa-check-circle"></i>
+                    AI Powered
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-lock"></i>
+                    Secure
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-certificate"></i>
+                    Evidence-Based
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Advanced Migraine Risk Assessment & Prevention</h2>
+                <p>Leverage AI-powered analysis to identify your migraine triggers, assess risk levels, and receive personalized prevention recommendations.</p>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <i class="fas fa-check"></i>
+                        <span>ML Risk Prediction</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Symptom Classification</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-check"></i>
+                        <span>AI Health Assistant</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-check"></i>
+                        <span>PDF Reports</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="nav-container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="lifestyle">
+                    <i class="fas fa-heartbeat"></i>
+                    Health Analysis
+                </button>
+                <button class="nav-tab" data-tab="symptoms">
+                    <i class="fas fa-stethoscope"></i>
+                    Symptom Classification
+                </button>
+                <button class="nav-tab" data-tab="chat">
+                    <i class="fas fa-comment-medical"></i>
+                    AI Assistant
+                </button>
+                <button class="nav-tab" data-tab="info">
+                    <i class="fas fa-book-medical"></i>
+                    Medical Information
+                </button>
+            </div>
+        </nav>
+
+        <!-- Tab 1: Health Analysis -->
+        <div id="tab-lifestyle" class="tab-content active">
+            <div class="grid-2">
+                <!-- Input Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="card-title">
+                            <h2>Health Data Input</h2>
+                            <p>Enter your current health metrics for analysis</p>
+                        </div>
+                    </div>
+
+                    <div id="lifestyle-alert" class="alert hidden"></div>
+
+                    <form id="lifestyle-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-brain"></i> Stress Level (1-10)</label>
+                                <input type="number" id="stress" min="1" max="10" value="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-bed"></i> Sleep Hours</label>
+                                <input type="number" id="sleep" min="0" max="24" step="0.5" value="7" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-heartbeat"></i> Heart Rate (BPM)</label>
+                                <input type="number" id="heart-rate" min="40" max="200" value="72" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-running"></i> Activity Level (1-10)</label>
+                                <input type="number" id="activity" min="1" max="10" value="5" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-cloud"></i> Barometric Pressure (hPa)</label>
+                                <input type="number" id="pressure" min="900" max="1100" step="0.1" value="1013" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-wind"></i> Air Quality Index</label>
+                                <input type="number" id="aqi" min="0" max="500" value="50" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn">
+                            <i class="fas fa-chart-line"></i>
+                            Analyze Risk Level
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon success">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="card-title">
+                            <h2>Risk Assessment Results</h2>
+                            <p>AI-powered prediction based on your health data</p>
+                        </div>
+                    </div>
+
+                    <div id="lifestyle-placeholder" class="placeholder">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Enter your health data and click "Analyze Risk Level" to view your personalized assessment</p>
+                    </div>
+
+                    <div id="lifestyle-loading" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Analyzing your health data...</span>
+                    </div>
+
+                    <div id="lifestyle-results" class="hidden">
+                        <div class="risk-display">
+                            <div class="risk-indicator" id="risk-indicator">
+                                <span class="risk-level" id="risk-level">--</span>
+                            </div>
+                            <div class="risk-label">Migraine Risk Level</div>
+                            <div class="risk-probability" id="risk-prob">--%</div>
+                            <div class="risk-subtext">Probability Assessment</div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidence-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="confidence-label">
+                                <span>Model Confidence</span>
+                                <span id="confidence-val">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="section-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Identified Risk Factors</h3>
+                        </div>
+                        <div id="triggers-list" class="item-list"></div>
+
+                        <!-- Report Buttons -->
+                        <div class="report-buttons">
+                            <button id="download-daily-report" class="btn btn-secondary">
+                                <i class="fas fa-file-pdf"></i>
+                                Daily Report
+                            </button>
+                            <button id="download-weekly-report" class="btn btn-secondary">
+                                <i class="fas fa-calendar-week"></i>
+                                Weekly Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Recommendations -->
+            <div class="card hidden" id="suggestions-card">
+                <div class="card-header">
+                    <div class="card-icon warning">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>AI-Powered Recommendations</h2>
+                        <p>Personalized prevention strategies based on your analysis</p>
+                    </div>
+                </div>
+                <div id="suggestions-loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <span>Generating personalized recommendations...</span>
+                </div>
+                <div id="suggestions-list" class="item-list"></div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Symptom Classification -->
+        <div id="tab-symptoms" class="tab-content">
+            <div class="grid-2">
+                <!-- Symptom Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="card-title">
+                            <h2>Symptom Assessment</h2>
+                            <p>Describe your symptoms for migraine type classification</p>
+                        </div>
+                    </div>
+
+                    <div id="symptom-alert" class="alert hidden"></div>
+
+                    <form id="symptom-form">
+                        <div class="form-row three-col">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Age</label>
+                                <input type="number" id="sym-age" min="1" max="120" value="35" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-clock"></i> Duration</label>
+                                <select id="sym-duration" required>
+                                    <option value="1">&lt;4 hours</option>
+                                    <option value="2" selected>4-72 hours</option>
+                                    <option value="3">&gt;72 hours</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-alt"></i> Frequency/Month</label>
+                                <input type="number" id="sym-frequency" min="1" max="30" value="4" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-bolt"></i> Pain Intensity</label>
+                                <select id="sym-intensity" required>
+                                    <option value="1">Mild</option>
+                                    <option value="2" selected>Moderate</option>
+                                    <option value="3">Severe</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-map-marker-alt"></i> Pain Location</label>
+                                <select id="sym-location">
+                                    <option value="1" selected>Unilateral (one side)</option>
+                                    <option value="2">Bilateral (both sides)</option>
+                                    <option value="3">Other location</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="section-header" style="margin-top: 28px;">
+                            <i class="fas fa-list-ul"></i>
+                            <h3>Associated Symptoms</h3>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-nausea">
+                                <span>Nausea</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-vomit">
+                                <span>Vomiting</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-phonophobia">
+                                <span>Sound Sensitivity</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-photophobia">
+                                <span>Light Sensitivity</span>
+                            </label>
+                        </div>
+
+                        <div class="section-header" style="margin-top: 28px;">
+                            <i class="fas fa-eye"></i>
+                            <h3>Aura Symptoms</h3>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-eye"></i> Visual Disturbances</label>
+                                <select id="sym-visual">
+                                    <option value="0" selected>None</option>
+                                    <option value="1">Mild (spots/flashes)</option>
+                                    <option value="2">Moderate (zig-zag lines)</option>
+                                    <option value="3">Severe (partial vision loss)</option>
+                                    <option value="4">Very severe</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-hand-paper"></i> Sensory Changes</label>
+                                <select id="sym-sensory">
+                                    <option value="0" selected>None</option>
+                                    <option value="1">Mild tingling</option>
+                                    <option value="2">Significant numbness</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="section-header" style="margin-top: 28px;">
+                            <i class="fas fa-brain"></i>
+                            <h3>Neurological Symptoms</h3>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-vertigo">
+                                <span>Vertigo/Dizziness</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-tinnitus">
+                                <span>Tinnitus</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-dysphasia">
+                                <span>Speech Difficulty</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-paresthesia">
+                                <span>Tingling/Numbness</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-ataxia">
+                                <span>Coordination Issues</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="sym-dpf">
+                                <span>Family History</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn" style="margin-top: 28px;">
+                            <i class="fas fa-search-plus"></i>
+                            Classify Migraine Type
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Classification Result -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon success">
+                            <i class="fas fa-diagnoses"></i>
+                        </div>
+                        <div class="card-title">
+                            <h2>Classification Result</h2>
+                            <p>AI-based migraine type identification</p>
+                        </div>
+                    </div>
+
+                    <div id="symptom-placeholder" class="placeholder">
+                        <i class="fas fa-clipboard-check"></i>
+                        <p>Complete the symptom assessment to receive your migraine classification</p>
+                    </div>
+
+                    <div id="symptom-loading" class="loading hidden">
+                        <div class="spinner"></div>
+                        <span>Analyzing symptom patterns...</span>
+                    </div>
+
+                    <div id="symptom-results" class="hidden">
+                        <div class="classification-result">
+                            <div class="classification-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="classification-type" id="migraine-type">--</div>
+                            <div class="classification-description" id="migraine-desc">--</div>
+                            <div class="classification-confidence">
+                                <i class="fas fa-chart-line"></i>
+                                Confidence: <strong id="classification-confidence">0%</strong>
+                            </div>
+                        </div>
+
+                        <div class="section-header">
+                            <i class="fas fa-tags"></i>
+                            <h3>Key Symptoms Identified</h3>
+                        </div>
+                        <div id="key-symptoms" style="margin-bottom: 28px;"></div>
+
+                        <div class="section-header">
+                            <i class="fas fa-prescription"></i>
+                            <h3>Clinical Recommendations</h3>
+                        </div>
+                        <div id="symptom-recommendations" class="item-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Chat -->
+        <div id="tab-chat" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>AI Health Assistant</h2>
+                        <p>Get answers to your migraine-related questions from our AI assistant</p>
+                    </div>
+                </div>
+
+                <div class="quick-questions">
+                    <button class="quick-question" data-question="What are common migraine triggers?">
+                        <i class="fas fa-bolt"></i> Common triggers
+                    </button>
+                    <button class="quick-question" data-question="How can I prevent migraines?">
+                        <i class="fas fa-shield-alt"></i> Prevention tips
+                    </button>
+                    <button class="quick-question" data-question="What is a migraine aura?">
+                        <i class="fas fa-eye"></i> What is aura?
+                    </button>
+                    <button class="quick-question" data-question="When should I see a doctor for headaches?">
+                        <i class="fas fa-user-md"></i> When to see doctor
+                    </button>
+                    <button class="quick-question" data-question="What foods trigger migraines?">
+                        <i class="fas fa-utensils"></i> Food triggers
+                    </button>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-message">
+                            <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                            <div class="message-content">
+                                Hello! I'm your AI health assistant specializing in migraine care. I can help you understand migraines, identify potential triggers, and provide evidence-based prevention strategies. How can I assist you today?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chat-input" placeholder="Type your question here..." autocomplete="off">
+                        <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Medical Information -->
+        <div id="tab-info" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-book-medical"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>Understanding Migraines</h2>
+                        <p>Educational resources about migraine conditions</p>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><i class="fas fa-brain"></i> What is a Migraine?</h3>
+                        <p>A migraine is a neurological condition characterized by intense, debilitating headaches. Symptoms often include throbbing pain (usually on one side), nausea, sensitivity to light and sound, and can last from 4 to 72 hours.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-exclamation-circle"></i> Common Triggers</h3>
+                        <ul>
+                            <li><i class="fas fa-brain"></i> Stress and anxiety</li>
+                            <li><i class="fas fa-moon"></i> Sleep disturbances</li>
+                            <li><i class="fas fa-venus"></i> Hormonal changes</li>
+                            <li><i class="fas fa-cloud-sun"></i> Weather changes</li>
+                            <li><i class="fas fa-wine-glass"></i> Certain foods & drinks</li>
+                            <li><i class="fas fa-volume-up"></i> Sensory overload</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-clock"></i> Migraine Phases</h3>
+                        <ul>
+                            <li><i class="fas fa-1"></i> Prodrome (warning signs)</li>
+                            <li><i class="fas fa-2"></i> Aura (sensory disturbances)</li>
+                            <li><i class="fas fa-3"></i> Headache (pain phase)</li>
+                            <li><i class="fas fa-4"></i> Postdrome (recovery)</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-shield-alt"></i> Prevention Tips</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Maintain regular sleep</li>
+                            <li><i class="fas fa-check"></i> Stay hydrated</li>
+                            <li><i class="fas fa-check"></i> Manage stress levels</li>
+                            <li><i class="fas fa-check"></i> Track your triggers</li>
+                            <li><i class="fas fa-check"></i> Regular exercise</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon success">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>Migraine Types</h2>
+                        <p>Classifications based on International Headache Society criteria</p>
+                    </div>
+                </div>
+                <div id="migraine-types-info" class="item-list" style="margin-top: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Install App Section -->
+    <section class="install-app-section" id="install-section">
+        <div class="install-app-content">
+            <h2><i class="fas fa-mobile-alt"></i> Install MigraineCare AI</h2>
+            <p>Get instant access to migraine risk assessment, AI-powered recommendations, and health tracking - right from your device. Works offline and sends helpful notifications!</p>
+            
+            <div class="install-features">
+                <div class="install-feature">
+                    <i class="fas fa-bolt"></i>
+                    <span>Fast & Lightweight</span>
+                </div>
+                <div class="install-feature">
+                    <i class="fas fa-wifi"></i>
+                    <span>Works Offline</span>
+                </div>
+                <div class="install-feature">
+                    <i class="fas fa-bell"></i>
+                    <span>Smart Notifications</span>
+                </div>
+                <div class="install-feature">
+                    <i class="fas fa-lock"></i>
+                    <span>Secure & Private</span>
+                </div>
+            </div>
+
+            <button class="install-app-btn" id="install-app-btn" style="display: none;">
+                <i class="fas fa-download"></i>
+                <span>Install App</span>
+            </button>
+            <p id="install-status" style="margin-top: 16px; font-size: 0.9rem; opacity: 0.8;"></p>
+        </div>
+    </section>
+
+    <!-- PWA Install Banner (Bottom Notification) -->
+    <div class="pwa-install-banner" id="pwa-install-banner">
+        <div class="pwa-install-banner-content">
+            <div class="pwa-install-banner-icon">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div class="pwa-install-banner-text">
+                <h4>Install MigraineCare AI</h4>
+                <p>Add to your home screen for quick access and offline use</p>
+            </div>
+        </div>
+        <div class="pwa-install-banner-actions">
+            <button class="pwa-install-btn" id="pwa-install-btn">
+                <i class="fas fa-download"></i>
+                Install Now
+            </button>
+            <button class="pwa-dismiss-btn" id="pwa-dismiss-btn">
+                Maybe Later
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-disclaimer">
+                <i class="fas fa-info-circle"></i>
+                <span><strong>Medical Disclaimer:</strong> This tool is for informational purposes only and does not constitute medical advice. Always consult a qualified healthcare professional for diagnosis and treatment.</span>
+            </div>
+
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>MigraineCare AI</h3>
+                    <p>Advanced AI-powered migraine risk assessment and prevention platform. Helping patients and healthcare providers make informed decisions through machine learning and evidence-based recommendations.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Features</h4>
+                    <ul>
+                        <li><a href="#">Risk Assessment</a></li>
+                        <li><a href="#">Symptom Analysis</a></li>
+                        <li><a href="#">AI Assistant</a></li>
+                        <li><a href="#">PDF Reports</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">About Migraines</a></li>
+                        <li><a href="#">Prevention Tips</a></li>
+                        <li><a href="#">Research</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Data Security</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 MigraineCare AI. All rights reserved.</p>
+                <p>Powered by Machine Learning • Version 2.0</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:8000/api/v1';
+
+        // ================================
+        // Tab Navigation
+        // ================================
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+                
+                if (tab.dataset.tab === 'info') {
+                    loadMigraineTypesInfo();
+                }
+            });
+        });
+
+        // ================================
+        // Checkbox Styling
+        // ================================
+        document.querySelectorAll('.checkbox-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                this.closest('.checkbox-item').classList.toggle('checked', this.checked);
+            });
+        });
+
+        // ================================
+        // Utility Functions
+        // ================================
+        function getTriggerIcon(trigger) {
+            const text = trigger.toLowerCase();
+            if (text.includes('stress')) return 'fas fa-brain';
+            if (text.includes('sleep')) return 'fas fa-bed';
+            if (text.includes('heart')) return 'fas fa-heartbeat';
+            if (text.includes('activity')) return 'fas fa-running';
+            if (text.includes('pressure')) return 'fas fa-cloud';
+            if (text.includes('aqi') || text.includes('air')) return 'fas fa-wind';
+            return 'fas fa-exclamation-circle';
+        }
+
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            const icon = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `<i class="${icon}"></i> ${message}`;
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 5000);
+        }
+
+        // ================================
+        // Lifestyle Analysis
+        // ================================
+        document.getElementById('lifestyle-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                stress_level: parseInt(document.getElementById('stress').value),
+                sleep_hours: parseFloat(document.getElementById('sleep').value),
+                heart_rate: parseInt(document.getElementById('heart-rate').value),
+                activity_level: parseInt(document.getElementById('activity').value),
+                weather_pressure: parseFloat(document.getElementById('pressure').value),
+                aqi: parseInt(document.getElementById('aqi').value),
+                user_id: 'default_user'
+            };
+
+            document.getElementById('lifestyle-placeholder').classList.add('hidden');
+            document.getElementById('lifestyle-loading').classList.remove('hidden');
+            document.getElementById('lifestyle-results').classList.add('hidden');
+            document.getElementById('suggestions-card').classList.add('hidden');
+
+            try {
+                const response = await fetch(`${API_URL}/enhanced-predict`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) throw new Error('Prediction failed');
+                const prediction = await response.json();
+
+                document.getElementById('lifestyle-loading').classList.add('hidden');
+                document.getElementById('lifestyle-results').classList.remove('hidden');
+
+                // Update risk indicator
+                const riskLevel = document.getElementById('risk-level');
+                const riskIndicator = document.getElementById('risk-indicator');
+                riskLevel.textContent = prediction.risk_level;
+                riskIndicator.className = 'risk-indicator ' + prediction.risk_level.toLowerCase();
+
+                document.getElementById('risk-prob').textContent = 
+                    Math.round(prediction.probability * 100) + '%';
+                document.getElementById('confidence-fill').style.width = 
+                    Math.round(prediction.confidence * 100) + '%';
+                document.getElementById('confidence-val').textContent = 
+                    Math.round(prediction.confidence * 100) + '%';
+
+                // Display triggers
+                const triggersList = document.getElementById('triggers-list');
+                if (prediction.triggers && prediction.triggers.length > 0) {
+                    triggersList.innerHTML = prediction.triggers.map(t => {
+                        const isHigh = t.toLowerCase().includes('very') || t.toLowerCase().includes('poor');
+                        const iconClass = getTriggerIcon(t);
+                        return `<div class="trigger-item ${isHigh ? 'high' : ''}">
+                            <i class="${iconClass}"></i>
+                            <span>${t}</span>
+                        </div>`;
+                    }).join('');
+                } else {
+                    triggersList.innerHTML = `<div class="trigger-item low">
+                        <i class="fas fa-check-circle"></i>
+                        <span>No significant risk factors detected. Great job maintaining healthy habits!</span>
+                    </div>`;
+                }
+
+                // Get AI suggestions
+                document.getElementById('suggestions-card').classList.remove('hidden');
+                document.getElementById('suggestions-loading').classList.remove('hidden');
+                document.getElementById('suggestions-list').innerHTML = '';
+
+                const suggestionsResponse = await fetch(`${API_URL}/ai-suggestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...formData,
+                        triggers: prediction.triggers,
+                        risk_level: prediction.risk_level
+                    })
+                });
+
+                document.getElementById('suggestions-loading').classList.add('hidden');
+
+                if (suggestionsResponse.ok) {
+                    const suggestions = await suggestionsResponse.json();
+                    document.getElementById('suggestions-list').innerHTML = 
+                        suggestions.suggestions.map(s => 
+                            `<div class="suggestion-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>${s}</span>
+                            </div>`
+                        ).join('');
+                    
+                    storeReportData(formData, prediction, suggestions.suggestions);
+                } else {
+                    storeReportData(formData, prediction, []);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('lifestyle-alert', 'Failed to get prediction. Please ensure the server is running.', 'error');
+                document.getElementById('lifestyle-loading').classList.add('hidden');
+                document.getElementById('lifestyle-placeholder').classList.remove('hidden');
+            }
+        });
+
+        // ================================
+        // Symptom Classification
+        // ================================
+        document.getElementById('symptom-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Helper function to safely get integer values
+            const safeInt = (id, defaultVal) => {
+                const el = document.getElementById(id);
+                const val = el ? parseInt(el.value) : defaultVal;
+                return isNaN(val) ? defaultVal : val;
+            };
+            
+            // Helper function to safely get checkbox values  
+            const safeCheck = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.checked : false;
+            };
+
+            const symptomData = {
+                user_id: 'default_user',
+                age: safeInt('sym-age', 35),
+                duration: safeInt('sym-duration', 2),
+                frequency: safeInt('sym-frequency', 4),
+                location: safeInt('sym-location', 1),
+                character: 1,
+                intensity: safeInt('sym-intensity', 2),
+                nausea: safeCheck('sym-nausea'),
+                vomit: safeCheck('sym-vomit'),
+                phonophobia: safeCheck('sym-phonophobia'),
+                photophobia: safeCheck('sym-photophobia'),
+                visual: safeInt('sym-visual', 0),
+                sensory: safeInt('sym-sensory', 0),
+                dysphasia: safeCheck('sym-dysphasia'),
+                dysarthria: false,
+                vertigo: safeCheck('sym-vertigo'),
+                tinnitus: safeCheck('sym-tinnitus'),
+                hypoacusis: false,
+                diplopia: false,
+                defect: false,
+                ataxia: safeCheck('sym-ataxia'),
+                conscience: false,
+                paresthesia: safeCheck('sym-paresthesia'),
+                dpf: safeCheck('sym-dpf')
+            };
+            
+            console.log('Sending symptom data:', symptomData);
+
+            document.getElementById('symptom-placeholder').classList.add('hidden');
+            document.getElementById('symptom-loading').classList.remove('hidden');
+            document.getElementById('symptom-results').classList.add('hidden');
+
+            try {
+                const response = await fetch(`${API_URL}/classify-symptoms`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(symptomData)
+                });
+
+                if (!response.ok) {
+                    const errorDetail = await response.text();
+                    console.error('Server error:', response.status, errorDetail);
+                    throw new Error('Classification failed: ' + response.status);
+                }
+                const result = await response.json();
+
+                document.getElementById('symptom-loading').classList.add('hidden');
+                document.getElementById('symptom-results').classList.remove('hidden');
+
+                document.getElementById('migraine-type').textContent = result.migraine_type;
+                document.getElementById('migraine-desc').textContent = result.description;
+                document.getElementById('classification-confidence').textContent = 
+                    Math.round(result.confidence * 100) + '%';
+
+                document.getElementById('key-symptoms').innerHTML = 
+                    result.key_symptoms.map(s => 
+                        `<span class="key-symptom"><i class="fas fa-tag"></i> ${s}</span>`
+                    ).join('');
+
+                document.getElementById('symptom-recommendations').innerHTML = 
+                    result.recommendations.map(r => 
+                        `<div class="suggestion-item">
+                            <i class="fas fa-prescription"></i>
+                            <span>${r}</span>
+                        </div>`
+                    ).join('');
+
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('symptom-alert', 'Failed to classify symptoms. Please ensure the server is running.', 'error');
+                document.getElementById('symptom-loading').classList.add('hidden');
+                document.getElementById('symptom-placeholder').classList.remove('hidden');
+            }
+        });
+
+        // ================================
+        // Chat
+        // ================================
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isUser ? 'user' : ''}`;
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${isUser ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>'}</div>
+                <div class="message-content">${content}</div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage(message) {
+            if (!message.trim()) return;
+            
+            addMessage(message, true);
+            chatInput.value = '';
+
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                <div class="message-content" style="color: var(--text-muted);">
+                    <i class="fas fa-circle-notch fa-spin"></i> Thinking...
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch(`${API_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: 'default_user',
+                        message: message
+                    })
+                });
+
+                document.getElementById('typing-indicator')?.remove();
+
+                if (response.ok) {
+                    const data = await response.json();
+                    addMessage(data.response.replace(/\n/g, '<br>'));
+                } else {
+                    addMessage("I apologize, but I couldn't process your request. Please try again.");
+                }
+            } catch (error) {
+                document.getElementById('typing-indicator')?.remove();
+                addMessage("I'm having trouble connecting to the server. Please check if it's running.");
+            }
+        }
+
+        document.getElementById('chat-send').addEventListener('click', () => {
+            sendMessage(chatInput.value);
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage(chatInput.value);
+        });
+
+        document.querySelectorAll('.quick-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                sendMessage(btn.dataset.question);
+            });
+        });
+
+        // ================================
+        // Migraine Types Info
+        // ================================
+        async function loadMigraineTypesInfo() {
+            try {
+                const response = await fetch(`${API_URL}/migraine-types`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const container = document.getElementById('migraine-types-info');
+                    container.innerHTML = Object.entries(data.types).map(([type, info]) => `
+                        <div class="suggestion-item">
+                            <i class="fas fa-brain"></i>
+                            <div>
+                                <strong style="color: var(--primary);">${type}</strong><br>
+                                <span style="color: var(--text-secondary);">${info.description}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading migraine types:', error);
+            }
+        }
+
+        // ================================
+        // PDF Report Generation
+        // ================================
+        let currentHealthData = null;
+        let currentPrediction = null;
+        let currentAiSuggestions = [];
+        let weeklyData = [];
+
+        function storeReportData(healthData, prediction, suggestions) {
+            currentHealthData = healthData;
+            currentPrediction = prediction;
+            currentAiSuggestions = suggestions;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const existingIndex = weeklyData.findIndex(d => d.date === today);
+            
+            const dailyEntry = {
+                date: today,
+                health_data: healthData,
+                prediction: prediction,
+                ai_suggestions: suggestions
+            };
+            
+            if (existingIndex >= 0) {
+                weeklyData[existingIndex] = dailyEntry;
+            } else {
+                weeklyData.push(dailyEntry);
+            }
+            
+            if (weeklyData.length > 7) {
+                weeklyData = weeklyData.slice(-7);
+            }
+            
+            localStorage.setItem('migraineWeeklyData', JSON.stringify(weeklyData));
+        }
+
+        function loadWeeklyData() {
+            const stored = localStorage.getItem('migraineWeeklyData');
+            if (stored) {
+                try {
+                    weeklyData = JSON.parse(stored);
+                } catch (e) {
+                    weeklyData = [];
+                }
+            }
+        }
+
+        async function downloadDailyReport() {
+            if (!currentHealthData || !currentPrediction) {
+                showAlert('lifestyle-alert', 'Please complete a health analysis first before downloading a report.', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('download-daily-report');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+            try {
+                const response = await fetch(`${API_URL}/generate-daily-report`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        health_data: currentHealthData,
+                        prediction: currentPrediction,
+                        ai_suggestions: currentAiSuggestions
+                    })
+                });
+
+                if (!response.ok) throw new Error('Failed to generate report');
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `MigraineCare_Daily_Report_${new Date().toISOString().split('T')[0]}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showAlert('lifestyle-alert', 'Daily report downloaded successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error generating report:', error);
+                showAlert('lifestyle-alert', 'Failed to generate report. Please try again.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-file-pdf"></i> Daily Report';
+            }
+        }
+
+        async function downloadWeeklyReport() {
+            if (weeklyData.length === 0) {
+                showAlert('lifestyle-alert', 'No data available for weekly report. Please track your health for a few days first.', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('download-weekly-report');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+            try {
+                const response = await fetch(`${API_URL}/generate-weekly-report`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        weekly_data: weeklyData
+                    })
+                });
+
+                if (!response.ok) throw new Error('Failed to generate report');
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `MigraineCare_Weekly_Report_${new Date().toISOString().split('T')[0]}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showAlert('lifestyle-alert', 'Weekly report downloaded successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error generating report:', error);
+                showAlert('lifestyle-alert', 'Failed to generate weekly report. Please try again.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-calendar-week"></i> Weekly Report';
+            }
+        }
+
+        document.getElementById('download-daily-report').addEventListener('click', downloadDailyReport);
+        document.getElementById('download-weekly-report').addEventListener('click', downloadWeeklyReport);
+
+        loadWeeklyData();
+
+        // ================================
+        // PWA Installation
+        // ================================
+        let deferredPrompt = null;
+        const installBanner = document.getElementById('pwa-install-banner');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const dismissBtn = document.getElementById('pwa-dismiss-btn');
+        const installAppBtn = document.getElementById('install-app-btn');
+        const installStatus = document.getElementById('install-status');
+
+        // Check if already installed
+        function isAppInstalled() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                   window.navigator.standalone === true ||
+                   document.referrer.includes('android-app://');
+        }
+
+        // Update install button states
+        function updateInstallUI(installed) {
+            if (installed) {
+                if (installAppBtn) {
+                    installAppBtn.style.display = 'inline-flex';
+                    installAppBtn.classList.add('installed');
+                    installAppBtn.innerHTML = '<i class="fas fa-check-circle"></i> App Installed';
+                    installAppBtn.disabled = true;
+                }
+                if (installStatus) {
+                    installStatus.textContent = 'MigraineCare AI is installed on your device!';
+                }
+                installBanner.classList.remove('show');
+            }
+        }
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('/sw.js');
+                    console.log('ServiceWorker registered:', registration.scope);
+                } catch (error) {
+                    console.error('ServiceWorker registration failed:', error);
+                }
+            });
+        }
+
+        // Listen for beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('beforeinstallprompt fired');
+            e.preventDefault();
+            deferredPrompt = e;
+
+            // Show install UI
+            if (installAppBtn) {
+                installAppBtn.style.display = 'inline-flex';
+            }
+
+            // Show banner after 3 seconds if not dismissed before
+            const bannerDismissed = localStorage.getItem('pwa-banner-dismissed');
+            if (!bannerDismissed) {
+                setTimeout(() => {
+                    installBanner.classList.add('show');
+                }, 3000);
+            }
+        });
+
+        // Handle install button click (banner)
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (!deferredPrompt) return;
+
+                installBanner.classList.remove('show');
+                deferredPrompt.prompt();
+
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log('User choice:', outcome);
+
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                }
+
+                deferredPrompt = null;
+            });
+        }
+
+        // Handle install button click (section)
+        if (installAppBtn) {
+            installAppBtn.addEventListener('click', async () => {
+                if (!deferredPrompt) {
+                    if (installStatus) {
+                        installStatus.textContent = 'Installation not available. Try using Chrome or Edge browser.';
+                    }
+                    return;
+                }
+
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+
+                if (outcome === 'accepted') {
+                    installAppBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Installing...';
+                }
+
+                deferredPrompt = null;
+            });
+        }
+
+        // Handle dismiss button
+        if (dismissBtn) {
+            dismissBtn.addEventListener('click', () => {
+                installBanner.classList.remove('show');
+                localStorage.setItem('pwa-banner-dismissed', 'true');
+            });
+        }
+
+        // Listen for app installed event
+        window.addEventListener('appinstalled', () => {
+            console.log('App was installed');
+            deferredPrompt = null;
+            updateInstallUI(true);
+        });
+
+        // Check initial state
+        if (isAppInstalled()) {
+            updateInstallUI(true);
+        } else {
+            if (installStatus) {
+                installStatus.textContent = 'Click the button above to install the app on your device.';
+            }
+        }
+    </script>
+</body>
+
+</html>
