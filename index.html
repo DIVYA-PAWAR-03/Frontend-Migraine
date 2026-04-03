@@ -1333,7 +1333,247 @@
             color: white;
         }
 
+        .auth-shell {
+            max-width: 980px;
+            margin: 28px auto;
+            background: linear-gradient(165deg, #ffffff 0%, #f6fbff 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-shell::after {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -90px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.18) 0%, rgba(0, 180, 216, 0) 70%);
+            pointer-events: none;
+        }
+
+        .auth-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            min-height: 520px;
+        }
+
+        .auth-panel {
+            background: linear-gradient(155deg, #005f92 0%, #0077B6 48%, #00B4D8 100%);
+            color: white;
+            padding: 34px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-panel::before {
+            content: '';
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            top: -120px;
+            left: -100px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .auth-panel::after {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            bottom: -100px;
+            right: -80px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-panel-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.45rem;
+            line-height: 1.25;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-panel-subtitle {
+            opacity: 0.92;
+            font-size: 0.96rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-panel-points {
+            list-style: none;
+            margin-top: 8px;
+            display: grid;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-panel-points li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+        }
+
+        .auth-panel-points i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .auth-form-area {
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-header {
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary);
+            background: rgba(0, 119, 182, 0.08);
+            border: 1px solid rgba(0, 119, 182, 0.18);
+            border-radius: 999px;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .auth-title {
+            margin-bottom: 6px;
+            color: var(--primary-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.7rem;
+            line-height: 1.2;
+        }
+
+        .auth-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .auth-mode-label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .auth-switch {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-switch button {
+            flex: 1;
+            border: 1px solid var(--border);
+            background: #f7fafc;
+            color: var(--text-secondary);
+            border-radius: 10px;
+            padding: 11px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .auth-switch button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(0, 119, 182, 0.26);
+        }
+
+        #login-form,
+        #register-form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-footer-note {
+            margin-top: 14px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-footer-note i {
+            color: var(--success);
+        }
+
+        .auth-user-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 999px;
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .auth-user-chip button {
+            border: none;
+            background: transparent;
+            color: var(--danger);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
+            .auth-shell {
+                margin: 18px 14px;
+            }
+
+            .auth-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-panel {
+                padding: 24px 20px;
+            }
+
+            .auth-form-area {
+                padding: 22px;
+            }
+
+            .auth-title {
+                font-size: 1.4rem;
+            }
+
             .pwa-install-banner {
                 flex-direction: column;
                 text-align: center;
@@ -1394,9 +1634,84 @@
                     <i class="fas fa-certificate"></i>
                     Evidence-Based
                 </div>
+                <div id="auth-user-chip" class="auth-user-chip hidden">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="auth-user-name">Patient</span>
+                    <button id="logout-btn" type="button">Logout</button>
+                </div>
             </div>
         </div>
     </header>
+
+    <section id="auth-section" class="auth-shell">
+        <div class="auth-layout">
+            <aside class="auth-panel">
+                <span class="auth-eyebrow"><i class="fas fa-hospital-user"></i> Clinical Access</span>
+                <h3 class="auth-panel-title">Your migraine profile, records, and reports in one secure portal</h3>
+                <p class="auth-panel-subtitle">Designed for daily tracking and doctor-ready documentation, with account-level isolation for every patient.</p>
+                <ul class="auth-panel-points">
+                    <li><i class="fas fa-user-lock"></i> Separate timeline for each patient account</li>
+                    <li><i class="fas fa-file-waveform"></i> Structured daily and weekly report history</li>
+                    <li><i class="fas fa-shield-heart"></i> Secure token-based access controls</li>
+                    <li><i class="fas fa-stethoscope"></i> Professional UI for self-care and consultations</li>
+                </ul>
+            </aside>
+
+            <div class="auth-form-area">
+                <div class="auth-header">
+                    <h2 class="auth-title">Welcome to MigraineCare Portal</h2>
+                    <p class="auth-subtitle">Sign in to continue with your personal migraine history and AI insights, or create your account in under a minute.</p>
+                </div>
+                <span class="auth-mode-label">Account Access</span>
+                <div class="auth-switch">
+                    <button id="switch-login" class="active" type="button">Sign In</button>
+                    <button id="switch-register" type="button">Register</button>
+                </div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input id="login-email" type="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input id="login-password" type="password" required minlength="6" placeholder="Enter password">
+                    </div>
+                    <button type="submit" class="btn">Sign In</button>
+                </form>
+
+                <form id="register-form" class="hidden">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input id="register-name" type="text" required minlength="2" placeholder="Patient name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input id="register-email" type="email" required placeholder="you@example.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input id="register-password" type="password" required minlength="6" placeholder="At least 6 characters">
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input id="register-age" type="number" min="1" max="120" placeholder="Optional">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <input id="register-gender" type="text" placeholder="Optional">
+                    </div>
+                    <button type="submit" class="btn">Create Account</button>
+                </form>
+                <div id="auth-alert" class="alert hidden" style="margin-top: 14px;"></div>
+                <p class="auth-footer-note"><i class="fas fa-shield-check"></i> Each account is mapped to one patient profile and isolated history.</p>
+            </div>
+        </div>
+    </section>
 
     <div class="container">
         <!-- Hero Section -->
@@ -2005,6 +2320,192 @@
             ? 'http://localhost:8000/api/v1'
             : `${window.location.origin}/api/v1`;
 
+        const AUTH_STORAGE_KEY = 'migrainecareAuth';
+        const WEEKLY_DATA_STORAGE_PREFIX = 'migraineWeeklyData';
+        let authState = {
+            token: null,
+            user: null,
+        };
+
+        function getWeeklyDataKey() {
+            const userId = authState.user?.id || 'anonymous';
+            return `${WEEKLY_DATA_STORAGE_PREFIX}_${userId}`;
+        }
+
+        function loadAuthState() {
+            const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+            if (!raw) return;
+            try {
+                const parsed = JSON.parse(raw);
+                authState.token = parsed.token || null;
+                authState.user = parsed.user || null;
+            } catch (e) {
+                authState = { token: null, user: null };
+            }
+        }
+
+        function saveAuthState() {
+            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authState));
+        }
+
+        function clearAuthState() {
+            authState = { token: null, user: null };
+            localStorage.removeItem(AUTH_STORAGE_KEY);
+        }
+
+        async function apiFetch(path, options = {}) {
+            const headers = { ...(options.headers || {}) };
+            if (!headers['Content-Type'] && options.body) {
+                headers['Content-Type'] = 'application/json';
+            }
+            if (authState.token) {
+                headers['Authorization'] = `Bearer ${authState.token}`;
+            }
+
+            const response = await fetch(`${API_URL}${path}`, {
+                ...options,
+                headers,
+            });
+
+            if (response.status === 401) {
+                clearAuthState();
+                applyAuthUI();
+                throw new Error('Session expired. Please sign in again.');
+            }
+
+            return response;
+        }
+
+        function getPatientInfo() {
+            if (!authState.user) return {};
+            return {
+                full_name: authState.user.full_name,
+                patient_id: authState.user.patient_id,
+                email: authState.user.email,
+                age: authState.user.age,
+                gender: authState.user.gender,
+            };
+        }
+
+        function applyAuthUI() {
+            const authed = !!authState.token;
+            document.getElementById('auth-section').classList.toggle('hidden', authed);
+            document.querySelector('.container').classList.toggle('hidden', !authed);
+
+            const chip = document.getElementById('auth-user-chip');
+            const name = document.getElementById('auth-user-name');
+            chip.classList.toggle('hidden', !authed);
+            if (authed && authState.user) {
+                name.textContent = authState.user.full_name || authState.user.email || 'Patient';
+            }
+
+            if (!authed) {
+                weeklyData = [];
+            }
+        }
+
+        async function validateExistingSession() {
+            if (!authState.token) return false;
+            try {
+                const response = await apiFetch('/me');
+                if (!response.ok) return false;
+                const data = await response.json();
+                authState.user = data.user;
+                saveAuthState();
+                return true;
+            } catch {
+                return false;
+            }
+        }
+
+        function initAuthHandlers() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const switchLogin = document.getElementById('switch-login');
+            const switchRegister = document.getElementById('switch-register');
+
+            function toggleAuthMode(registerMode) {
+                registerForm.classList.toggle('hidden', !registerMode);
+                loginForm.classList.toggle('hidden', registerMode);
+                switchRegister.classList.toggle('active', registerMode);
+                switchLogin.classList.toggle('active', !registerMode);
+            }
+
+            switchLogin.addEventListener('click', () => toggleAuthMode(false));
+            switchRegister.addEventListener('click', () => toggleAuthMode(true));
+
+            function setAuthSubmitting(formElement, isSubmitting, busyText) {
+                const submitBtn = formElement.querySelector('button[type="submit"]');
+                if (!submitBtn) return;
+                if (!submitBtn.dataset.originalText) {
+                    submitBtn.dataset.originalText = submitBtn.innerHTML;
+                }
+                submitBtn.disabled = isSubmitting;
+                submitBtn.innerHTML = isSubmitting
+                    ? `<i class="fas fa-circle-notch fa-spin"></i> ${busyText}`
+                    : submitBtn.dataset.originalText;
+            }
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                setAuthSubmitting(loginForm, true, 'Signing In...');
+                try {
+                    const response = await apiFetch('/login', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            email: document.getElementById('login-email').value.trim(),
+                            password: document.getElementById('login-password').value,
+                        }),
+                    });
+                    if (!response.ok) throw new Error('Invalid email or password');
+                    const data = await response.json();
+                    authState.token = data.access_token;
+                    authState.user = data.user;
+                    saveAuthState();
+                    loadWeeklyData();
+                    applyAuthUI();
+                } catch (err) {
+                    showAlert('auth-alert', err.message || 'Login failed', 'error');
+                } finally {
+                    setAuthSubmitting(loginForm, false, 'Signing In...');
+                }
+            });
+
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                setAuthSubmitting(registerForm, true, 'Creating Account...');
+                try {
+                    const ageValue = document.getElementById('register-age').value;
+                    const response = await apiFetch('/register', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            full_name: document.getElementById('register-name').value.trim(),
+                            email: document.getElementById('register-email').value.trim(),
+                            password: document.getElementById('register-password').value,
+                            age: ageValue ? parseInt(ageValue) : null,
+                            gender: document.getElementById('register-gender').value.trim() || null,
+                        }),
+                    });
+                    if (!response.ok) throw new Error('Registration failed');
+                    const data = await response.json();
+                    authState.token = data.access_token;
+                    authState.user = data.user;
+                    saveAuthState();
+                    loadWeeklyData();
+                    applyAuthUI();
+                } catch (err) {
+                    showAlert('auth-alert', err.message || 'Registration failed', 'error');
+                } finally {
+                    setAuthSubmitting(registerForm, false, 'Creating Account...');
+                }
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                clearAuthState();
+                applyAuthUI();
+            });
+        }
+
         // ================================
         // Tab Navigation
         // ================================
@@ -2067,7 +2568,7 @@
                 activity_level: parseInt(document.getElementById('activity').value),
                 weather_pressure: parseFloat(document.getElementById('pressure').value),
                 aqi: parseInt(document.getElementById('aqi').value),
-                user_id: 'default_user'
+                user_id: authState.user?.id || null
             };
 
             document.getElementById('lifestyle-placeholder').classList.add('hidden');
@@ -2076,9 +2577,8 @@
             document.getElementById('suggestions-card').classList.add('hidden');
 
             try {
-                const response = await fetch(`${API_URL}/enhanced-predict`, {
+                const response = await apiFetch('/enhanced-predict', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
 
@@ -2119,14 +2619,27 @@
                     </div>`;
                 }
 
+                // Persist this assessment so weekly reports can use patient history from backend.
+                try {
+                    await apiFetch('/log-data', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            ...formData,
+                            had_migraine: null,
+                            notes: null,
+                        }),
+                    });
+                } catch (persistErr) {
+                    console.warn('Unable to persist assessment history:', persistErr);
+                }
+
                 // Get AI suggestions
                 document.getElementById('suggestions-card').classList.remove('hidden');
                 document.getElementById('suggestions-loading').classList.remove('hidden');
                 document.getElementById('suggestions-list').innerHTML = '';
 
-                const suggestionsResponse = await fetch(`${API_URL}/ai-suggestion`, {
+                const suggestionsResponse = await apiFetch('/ai-suggestion', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         ...formData,
                         triggers: prediction.triggers,
@@ -2179,7 +2692,7 @@
             };
 
             const symptomData = {
-                user_id: 'default_user',
+                user_id: authState.user?.id || null,
                 age: safeInt('sym-age', 35),
                 duration: safeInt('sym-duration', 2),
                 frequency: safeInt('sym-frequency', 4),
@@ -2212,9 +2725,8 @@
             document.getElementById('symptom-results').classList.add('hidden');
 
             try {
-                const response = await fetch(`${API_URL}/classify-symptoms`, {
+                const response = await apiFetch('/classify-symptoms', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(symptomData)
                 });
 
@@ -2290,11 +2802,10 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
-                const response = await fetch(`${API_URL}/chat`, {
+                const response = await apiFetch('/chat', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        user_id: 'default_user',
+                        user_id: authState.user?.id || null,
                         message: message
                     })
                 });
@@ -2332,7 +2843,7 @@
         // ================================
         async function loadMigraineTypesInfo() {
             try {
-                const response = await fetch(`${API_URL}/migraine-types`);
+                const response = await apiFetch('/migraine-types');
                 if (response.ok) {
                     const data = await response.json();
                     const container = document.getElementById('migraine-types-info');
@@ -2360,6 +2871,8 @@
         let weeklyData = [];
 
         function storeReportData(healthData, prediction, suggestions) {
+            if (!authState.user?.id) return;
+
             currentHealthData = healthData;
             currentPrediction = prediction;
             currentAiSuggestions = suggestions;
@@ -2384,17 +2897,24 @@
                 weeklyData = weeklyData.slice(-7);
             }
             
-            localStorage.setItem('migraineWeeklyData', JSON.stringify(weeklyData));
+            localStorage.setItem(getWeeklyDataKey(), JSON.stringify(weeklyData));
         }
 
         function loadWeeklyData() {
-            const stored = localStorage.getItem('migraineWeeklyData');
+            if (!authState.user?.id) {
+                weeklyData = [];
+                return;
+            }
+
+            const stored = localStorage.getItem(getWeeklyDataKey());
             if (stored) {
                 try {
                     weeklyData = JSON.parse(stored);
                 } catch (e) {
                     weeklyData = [];
                 }
+            } else {
+                weeklyData = [];
             }
         }
 
@@ -2409,13 +2929,14 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
 
             try {
-                const response = await fetch(`${API_URL}/generate-daily-report`, {
+                const response = await apiFetch('/generate-daily-report', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         health_data: currentHealthData,
                         prediction: currentPrediction,
-                        ai_suggestions: currentAiSuggestions
+                        ai_suggestions: currentAiSuggestions,
+                        user_name: authState.user?.full_name,
+                        patient_info: getPatientInfo(),
                     })
                 });
 
@@ -2453,11 +2974,12 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
 
             try {
-                const response = await fetch(`${API_URL}/generate-weekly-report`, {
+                const response = await apiFetch('/generate-weekly-report', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        weekly_data: weeklyData
+                        weekly_data: weeklyData,
+                        user_name: authState.user?.full_name,
+                        patient_info: getPatientInfo(),
                     })
                 });
 
@@ -2487,7 +3009,16 @@
         document.getElementById('download-daily-report').addEventListener('click', downloadDailyReport);
         document.getElementById('download-weekly-report').addEventListener('click', downloadWeeklyReport);
 
-        loadWeeklyData();
+        (async () => {
+            loadAuthState();
+            initAuthHandlers();
+            const ok = await validateExistingSession();
+            if (!ok && authState.token) {
+                clearAuthState();
+            }
+            loadWeeklyData();
+            applyAuthUI();
+        })();
 
         // ================================
         // PWA Installation
