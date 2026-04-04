@@ -1,11 +1,12 @@
 // MigraineCare AI - Service Worker
-const CACHE_NAME = 'migrainecare-v1';
-const STATIC_CACHE = 'migrainecare-static-v1';
-const DYNAMIC_CACHE = 'migrainecare-dynamic-v1';
+const CACHE_NAME = 'migrainecare-v2';
+const STATIC_CACHE = 'migrainecare-static-v2';
+const DYNAMIC_CACHE = 'migrainecare-dynamic-v2';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
     '/',
+    '/index.html',
     '/professional_index.html',
     '/manifest.json',
     'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap',
@@ -114,7 +115,7 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => {
                         // Offline fallback for HTML pages
                         if (request.headers.get('accept').includes('text/html')) {
-                            return caches.match('/professional_index.html');
+                            return caches.match('/index.html');
                         }
                     });
             })
@@ -140,7 +141,7 @@ self.addEventListener('push', (event) => {
         badge: '/icons/icon-72x72.png',
         vibrate: [100, 50, 100],
         data: {
-            url: data.url || '/professional_index.html'
+            url: data.url || '/index.html'
         },
         actions: [
             { action: 'open', title: 'Open App' },
@@ -166,12 +167,12 @@ self.addEventListener('notificationclick', (event) => {
         clients.matchAll({ type: 'window', includeUncontrolled: true })
             .then((clientList) => {
                 for (const client of clientList) {
-                    if (client.url.includes('professional_index.html') && 'focus' in client) {
+                    if (client.url.includes('index.html') && 'focus' in client) {
                         return client.focus();
                     }
                 }
                 if (clients.openWindow) {
-                    return clients.openWindow(event.notification.data.url || '/professional_index.html');
+                    return clients.openWindow(event.notification.data.url || '/index.html');
                 }
             })
     );
