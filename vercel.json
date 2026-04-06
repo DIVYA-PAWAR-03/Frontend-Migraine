@@ -7,7 +7,7 @@
     },
     {
       "src": "/",
-      "dest": "/professional_index.html"
+      "dest": "/index.html"
     },
     {
       "src": "/(.*)",
