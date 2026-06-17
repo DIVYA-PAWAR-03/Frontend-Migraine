@@ -1,7 +1,7 @@
 // MigraineCare AI - Service Worker
-const CACHE_NAME = 'migrainecare-v2';
-const STATIC_CACHE = 'migrainecare-static-v2';
-const DYNAMIC_CACHE = 'migrainecare-dynamic-v2';
+const CACHE_NAME = 'migrainecare-v3';
+const STATIC_CACHE = 'migrainecare-static-v3';
+const DYNAMIC_CACHE = 'migrainecare-dynamic-v3';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
