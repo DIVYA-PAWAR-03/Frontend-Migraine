@@ -1163,6 +1163,8 @@
             chatMessages.appendChild(typingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
+            const startTime = Date.now();
+
             try {
                 const response = await fetch(`${API_URL}/chat`, {
                     method: 'POST',
@@ -1173,15 +1175,32 @@
                     })
                 });
 
+                let data = null;
+                if (response.ok) {
+                    data = await response.json();
+                }
+
+                // Simulate thinking for 7 to 8 seconds
+                const elapsed = Date.now() - startTime;
+                const minDelay = 7500; // 7.5 seconds
+                if (elapsed < minDelay) {
+                    await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+                }
+
                 document.getElementById('typing-indicator')?.remove();
 
-                if (response.ok) {
-                    const data = await response.json();
+                if (data) {
                     addMessage(data.response.replace(/\n/g, '<br>'));
                 } else {
                     addMessage("Sorry, I couldn't process your request. Please try again.");
                 }
             } catch (error) {
+                const elapsed = Date.now() - startTime;
+                const minDelay = 7500;
+                if (elapsed < minDelay) {
+                    await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+                }
+
                 document.getElementById('typing-indicator')?.remove();
                 addMessage("I'm having trouble connecting. Please check if the server is running.");
             }

@@ -1892,6 +1892,97 @@
                 <div id="migraine-types-info" class="item-list" style="margin-top: 8px;"></div>
             </div>
         </div>
+
+        <!-- Tab 5: Legal Information (Footer Links Content) -->
+        <div id="tab-legal" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon info" style="background: rgba(99, 102, 241, 0.1); color: var(--primary);">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>Legal & Support Information</h2>
+                        <p>Privacy Policy, Terms of Service, Data Security, and Contact Support</p>
+                    </div>
+                </div>
+
+                <div class="legal-container" style="margin-top: 20px;">
+                    <!-- Tab Headers for Legal Topics -->
+                    <div class="legal-tabs" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; overflow-x: auto;">
+                        <button class="legal-tab active-legal" onclick="switchLegalTab('privacy')" style="background: none; border: none; color: var(--primary); font-weight: bold; cursor: pointer; padding: 8px 16px; border-radius: 4px; font-size: 1rem; border-bottom: 2px solid var(--primary);">Privacy Policy</button>
+                        <button class="legal-tab" onclick="switchLegalTab('terms')" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 8px 16px; border-radius: 4px; font-size: 1rem;">Terms of Service</button>
+                        <button class="legal-tab" onclick="switchLegalTab('security')" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 8px 16px; border-radius: 4px; font-size: 1rem;">Data Security</button>
+                        <button class="legal-tab" onclick="switchLegalTab('contact')" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 8px 16px; border-radius: 4px; font-size: 1rem;">Contact Us</button>
+                    </div>
+
+                    <!-- Legal Contents -->
+                    <div id="legal-privacy" class="legal-content-section" style="line-height: 1.7;">
+                        <h3 style="color: var(--primary); margin-bottom: 12px;"><i class="fas fa-user-shield"></i> Privacy Policy</h3>
+                        <p>Your privacy is of utmost importance to us. MigraineCare AI is committed to protecting the personal health data you track and share with our platform.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-database" style="color: var(--primary); margin-right: 6px;"></i> 1. Data Collection</h4>
+                        <p>We collect health metrics such as stress levels, sleep hours, heart rate, daily activity, weather pressure, air quality index (AQI), and logged migraine symptoms to build your personalized prediction profiles.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-cog" style="color: var(--primary); margin-right: 6px;"></i> 2. How We Use Data</h4>
+                        <p>Your data is strictly used to run our Machine Learning models for risk assessment, trigger detection, symptom classification, and to generate PDF health reports for your doctor visits.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-handshake" style="color: var(--primary); margin-right: 6px;"></i> 3. Consent and Sharing</h4>
+                        <p>We do not sell, rent, or lease your personal health details. Data is only shared with medical professionals at your explicit request (e.g., when you download and present your health reports).</p>
+                    </div>
+
+                    <div id="legal-terms" class="legal-content-section" style="display: none; line-height: 1.7;">
+                        <h3 style="color: var(--primary); margin-bottom: 12px;"><i class="fas fa-file-contract"></i> Terms of Service</h3>
+                        <p>Please review these terms before using the MigraineCare AI platform.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-exclamation-triangle" style="color: var(--warning); margin-right: 6px;"></i> 1. Non-Medical Advice Disclaimer</h4>
+                        <p style="color: var(--warning); font-weight: bold; background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 6px; border-left: 4px solid var(--warning); margin-bottom: 15px;">
+                            IMPORTANT: The predictions, classifications, and chatbot guidance provided by this platform are for informational and educational purposes only. They do NOT constitute professional medical advice, diagnosis, or treatment. Always consult a qualified physician or neurologist for medical decisions.
+                        </p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-server" style="color: var(--primary); margin-right: 6px;"></i> 2. Service Availability</h4>
+                        <p>While we strive to keep predictions and analysis highly accurate using modern Machine Learning and AI libraries, we make no guarantees regarding continuous service availability or absolute prediction precision.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-user-check" style="color: var(--primary); margin-right: 6px;"></i> 3. User Responsibility</h4>
+                        <p>Users are responsible for entering accurate daily logs to receive meaningful predictions. The platform is not liable for actions taken based on informational outputs.</p>
+                    </div>
+
+                    <div id="legal-security" class="legal-content-section" style="display: none; line-height: 1.7;">
+                        <h3 style="color: var(--primary); margin-bottom: 12px;"><i class="fas fa-shield-alt"></i> Data Security</h3>
+                        <p>We employ industry-standard security measures to safeguard your sensitive information.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-lock" style="color: var(--primary); margin-right: 6px;"></i> 1. Encryption in Transit and at Rest</h4>
+                        <p>All communications between the frontend UI and backend API are encrypted using secure HTTPS protocols. Data stored in our database is secured with access credentials and database encryption.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-key" style="color: var(--primary); margin-right: 6px;"></i> 2. Authentication</h4>
+                        <p>User sessions are protected using secure token-based authentication (JSON Web Tokens). Always keep your passwords private and log out when using public terminals.</p>
+                        <h4 style="margin-top: 16px; color: var(--text-primary);"><i class="fas fa-hdd" style="color: var(--primary); margin-right: 6px;"></i> 3. Local Storage Safety</h4>
+                        <p>Session data is stored in the browser's local storage securely and is flushed immediately when you log out of the application.</p>
+                    </div>
+
+                    <div id="legal-contact" class="legal-content-section" style="display: none; line-height: 1.7;">
+                        <h3 style="color: var(--primary); margin-bottom: 12px;"><i class="fas fa-envelope"></i> Contact Us</h3>
+                        <p>Have any questions, concerns, or feedback? Reach out to the MigraineCare AI support team.</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; margin-top: 20px;">
+                            <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 15px;">
+                                <div>
+                                    <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;"><i class="fas fa-map-marker-alt"></i> Office Address</h4>
+                                    <p style="color: var(--text-secondary);">Healthcare AI Plaza, Suite 400<br>Silicon Valley, CA 94025</p>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;"><i class="fas fa-phone"></i> Support Line</h4>
+                                    <p style="color: var(--text-secondary);">+1 (800) 555-CARE (2273)<br>Mon-Fri: 9 AM - 5 PM PST</p>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;"><i class="fas fa-envelope"></i> Email Support</h4>
+                                    <p style="color: var(--text-secondary);">support@migrainecare.ai</p>
+                                </div>
+                            </div>
+                            <div>
+                                <form id="legal-contact-form" onsubmit="event.preventDefault(); showToast('Feedback submitted successfully!', 'success'); this.reset();" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <input type="text" placeholder="Your Name" required style="padding: 12px; border-radius: 6px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); color: var(--text-primary); font-size: 1rem;">
+                                    <input type="email" placeholder="Your Email" required style="padding: 12px; border-radius: 6px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); color: var(--text-primary); font-size: 1rem;">
+                                    <textarea placeholder="Your Message" required rows="4" style="padding: 12px; border-radius: 6px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); color: var(--text-primary); resize: none; font-size: 1rem;"></textarea>
+                                    <button type="submit" class="btn" style="padding: 12px; cursor: pointer; font-size: 1rem; font-weight: bold;">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Install App Section -->
@@ -1983,10 +2074,10 @@
                 <div class="footer-col">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Data Security</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#" onclick="openLegalPage('privacy'); return false;">Privacy Policy</a></li>
+                        <li><a href="#" onclick="openLegalPage('terms'); return false;">Terms of Service</a></li>
+                        <li><a href="#" onclick="openLegalPage('security'); return false;">Data Security</a></li>
+                        <li><a href="#" onclick="openLegalPage('contact'); return false;">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -2289,6 +2380,8 @@
             chatMessages.appendChild(typingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
+            const startTime = Date.now();
+
             try {
                 const response = await fetch(`${API_URL}/chat`, {
                     method: 'POST',
@@ -2299,15 +2392,32 @@
                     })
                 });
 
+                let data = null;
+                if (response.ok) {
+                    data = await response.json();
+                }
+
+                // Simulate thinking for 7 to 8 seconds
+                const elapsed = Date.now() - startTime;
+                const minDelay = 7500; // 7.5 seconds
+                if (elapsed < minDelay) {
+                    await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+                }
+
                 document.getElementById('typing-indicator')?.remove();
 
-                if (response.ok) {
-                    const data = await response.json();
+                if (data) {
                     addMessage(data.response.replace(/\n/g, '<br>'));
                 } else {
                     addMessage("I apologize, but I couldn't process your request. Please try again.");
                 }
             } catch (error) {
+                const elapsed = Date.now() - startTime;
+                const minDelay = 7500;
+                if (elapsed < minDelay) {
+                    await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+                }
+
                 document.getElementById('typing-indicator')?.remove();
                 addMessage("I'm having trouble connecting to the server. Please check if it's running.");
             }
@@ -2326,6 +2436,44 @@
                 sendMessage(btn.dataset.question);
             });
         });
+
+        // ================================
+        // Legal Section Sub-tab Switching
+        // ================================
+        function switchLegalTab(tabId) {
+            document.querySelectorAll('.legal-tab').forEach(btn => {
+                btn.style.color = 'var(--text-secondary)';
+                btn.style.borderBottom = 'none';
+                btn.style.fontWeight = 'normal';
+                btn.classList.remove('active-legal');
+            });
+            
+            const activeBtn = Array.from(document.querySelectorAll('.legal-tab')).find(btn => btn.getAttribute('onclick').includes(tabId));
+            if (activeBtn) {
+                activeBtn.style.color = 'var(--primary)';
+                activeBtn.style.borderBottom = '2px solid var(--primary)';
+                activeBtn.style.fontWeight = 'bold';
+                activeBtn.classList.add('active-legal');
+            }
+            
+            document.querySelectorAll('.legal-content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById('legal-' + tabId).style.display = 'block';
+        }
+
+        function openLegalPage(tabId) {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const legalTabContent = document.getElementById('tab-legal');
+            if (legalTabContent) {
+                legalTabContent.classList.add('active');
+            }
+            
+            switchLegalTab(tabId);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         // ================================
         // Migraine Types Info
